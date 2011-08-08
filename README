@@ -1,6 +1,6 @@
 ZBAR BAR CODE READER FOR MARMALADE
 ==================================
-zbar, adapated to Marmalade build system by Braden MacDonald
+ZBar, adapated to Marmalade build system by Braden MacDonald
 
 Only supports QR code functionality
 
@@ -14,7 +14,7 @@ Release). This will use the unmodified original zbar source code.
 
 If you need both x86 and ARM builds, use "zbar.mkb" to build the libraries.
 This uses modified source code designed to compile with both the Visual Studio
-compiler and GCC>
+compiler and GCC.
 Be sure to compile for each target you will be using for your project,
 e.g. x86 Release, x86 debug, ARM Release, and ARM Debug.
 
@@ -39,3 +39,4 @@ Add the following to the MKB file for your project:
 Then, in your project source files, simply add
 	#include "zbar.h"
 and use zbar according to the API documentation.
+Note that only the C API will be available, not the C++ API.
