@@ -190,7 +190,7 @@ int qr_code_data_list_extract_text(const qr_code_data_list *_qrlist,
             if(fnc1)for(;;){
               size_t plen;
               char   c;
-              p=memchr(in,'%',inleft*sizeof(*in));
+              p=(char*)memchr(in,'%',inleft*sizeof(*in));
               if(p==NULL)break;
               plen=p-in;
               if(sa_ctext-sa_ntext<plen+1)break;

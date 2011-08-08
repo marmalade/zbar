@@ -57,7 +57,7 @@ static void _zbar_video_recycle_shadow (zbar_image_t *img)
 
 zbar_video_t *zbar_video_create ()
 {
-    zbar_video_t *vdo = calloc(1, sizeof(zbar_video_t));
+    zbar_video_t *vdo = (zbar_video_t*)calloc(1, sizeof(zbar_video_t));
     if(!vdo)
         return(NULL);
     err_init(&vdo->err, ZBAR_MOD_VIDEO);
@@ -67,7 +67,7 @@ zbar_video_t *zbar_video_create ()
 
     /* pre-allocate images */
     vdo->num_images = ZBAR_VIDEO_IMAGES_MAX;
-    vdo->images = calloc(ZBAR_VIDEO_IMAGES_MAX, sizeof(zbar_image_t*));
+    vdo->images = (zbar_image_t **)calloc(ZBAR_VIDEO_IMAGES_MAX, sizeof(zbar_image_t*));
     if(!vdo->images) {
         zbar_video_destroy(vdo);
         return(NULL);
@@ -206,7 +206,7 @@ int zbar_video_request_iomode (zbar_video_t *vdo,
     if(iomode < 0 || iomode > VIDEO_USERPTR)
         return(err_capture(vdo, SEV_ERROR, ZBAR_ERR_INVALID, __func__,
                          "invalid iomode requested"));
-    vdo->iomode = iomode;
+    vdo->iomode = (video_iomode_t)iomode;
     return(0);
 }
 
@@ -249,7 +249,7 @@ static inline int video_init_images (zbar_video_t *vdo)
         if(vdo->iomode != VIDEO_MMAP) {
             img->datalen = vdo->datalen;
             unsigned long offset = i * vdo->datalen;
-            img->data = vdo->buf + offset;
+            img->data = (char*)vdo->buf + offset;
             zprintf(2, "    [%02d] @%08lx\n", i, offset);
         }
     }

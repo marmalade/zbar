@@ -165,7 +165,7 @@ char *zbar_symbol_xml (const zbar_symbol_t *sym,
     if(!*buf || (*len < maxlen)) {
         if(*buf)
             free(*buf);
-        *buf = malloc(maxlen);
+        *buf = (char*)malloc(maxlen);
         /* FIXME check OOM */
         *len = maxlen;
     }
@@ -204,7 +204,7 @@ char *zbar_symbol_xml (const zbar_symbol_t *sym,
 
 zbar_symbol_set_t *_zbar_symbol_set_create ()
 {
-    zbar_symbol_set_t *syms = calloc(1, sizeof(*syms));
+    zbar_symbol_set_t *syms = (zbar_symbol_set_t*)calloc(1, sizeof(*syms));
     _zbar_refcnt(&syms->refcnt, 1);
     return(syms);
 }

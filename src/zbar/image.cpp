@@ -27,7 +27,7 @@
 
 zbar_image_t *zbar_image_create ()
 {
-    zbar_image_t *img = calloc(1, sizeof(zbar_image_t));
+    zbar_image_t *img = (zbar_image_t*)calloc(1, sizeof(zbar_image_t));
     _zbar_refcnt_init();
     _zbar_image_refcnt(img, 1);
     img->srcidx = -1;
@@ -202,7 +202,7 @@ int zbar_image_write (const zbar_image_t *img,
                       const char *filebase)
 {
     int len = strlen(filebase) + 16;
-    char filename[len];
+    char* filename = (char*)malloc(len);
     strcpy(filename, filebase);
     int n = 0;
     if(*(char*)&img->format >= ' ')
@@ -221,6 +221,7 @@ int zbar_image_write (const zbar_image_t *img,
     if(!f) {
         int rc = errno;
         zprintf(1, "ERROR opening %s: %s\n", filename, strerror(rc));
+		free(filename);
         return(rc);
     }
 
@@ -236,8 +237,10 @@ int zbar_image_write (const zbar_image_t *img,
         int rc = errno;
         zprintf(1, "ERROR writing %s: %s\n", filename, strerror(rc));
         fclose(f);
+		free(filename);
         return(rc);
     }
+	free(filename);
     return(fclose(f));
 }
 

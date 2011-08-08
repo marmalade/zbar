@@ -238,7 +238,7 @@ _zbar_image_scanner_alloc_sym (zbar_image_scanner_t *iscn,
         iscn->recycle[i].nsyms--;
     }
     else {
-        sym = calloc(1, sizeof(zbar_symbol_t));
+        sym = (zbar_symbol_t*)calloc(1, sizeof(zbar_symbol_t));
         STAT(sym_new);
     }
 
@@ -256,7 +256,7 @@ _zbar_image_scanner_alloc_sym (zbar_image_scanner_t *iscn,
             if(sym->data)
                 free(sym->data);
             sym->data_alloc = datalen;
-            sym->data = malloc(datalen);
+            sym->data = (char*)malloc(datalen);
         }
     }
     else {
@@ -387,7 +387,7 @@ static inline void qr_handler (zbar_image_scanner_t *iscn)
 
 static void symbol_handler (zbar_decoder_t *dcode)
 {
-    zbar_image_scanner_t *iscn = zbar_decoder_get_userdata(dcode);
+    zbar_image_scanner_t *iscn = (zbar_image_scanner_t*)zbar_decoder_get_userdata(dcode);
     zbar_symbol_type_t type = zbar_decoder_get_type(dcode);
     /* FIXME assert(type == ZBAR_PARTIAL) */
     /* FIXME debug flag to save/display all PARTIALs */
@@ -448,7 +448,7 @@ static void symbol_handler (zbar_decoder_t *dcode)
 
 zbar_image_scanner_t *zbar_image_scanner_create ()
 {
-    zbar_image_scanner_t *iscn = calloc(1, sizeof(zbar_image_scanner_t));
+    zbar_image_scanner_t *iscn = (zbar_image_scanner_t*)calloc(1, sizeof(zbar_image_scanner_t));
     if(!iscn)
         return(NULL);
     iscn->dcode = zbar_decoder_create();
@@ -467,7 +467,7 @@ zbar_image_scanner_t *zbar_image_scanner_create ()
     /* apply default configuration */
     CFG(iscn, ZBAR_CFG_X_DENSITY) = 1;
     CFG(iscn, ZBAR_CFG_Y_DENSITY) = 1;
-    zbar_image_scanner_set_config(iscn, 0, ZBAR_CFG_POSITION, 1);
+    zbar_image_scanner_set_config(iscn, ZBAR_NONE, ZBAR_CFG_POSITION, 1);
     return(iscn);
 }
 
@@ -550,7 +550,7 @@ int zbar_image_scanner_set_config (zbar_image_scanner_t *iscn,
 
     if(cfg > ZBAR_CFG_POSITION)
         return(1);
-    cfg -= ZBAR_CFG_POSITION;
+    cfg =(zbar_config_t) (cfg - ZBAR_CFG_POSITION);
 
     if(!val)
         iscn->config &= ~(1 << cfg);
@@ -634,7 +634,7 @@ int zbar_scan_image (zbar_image_scanner_t *iscn,
 
     unsigned w = img->width;
     unsigned h = img->height;
-    const uint8_t *data = img->data;
+    const uint8_t *data = (uint8_t*)img->data;
 
     zbar_image_write_png(img, "debug.png");
     svg_open("debug.svg", 0, 0, w, h);

@@ -3211,15 +3211,15 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
     entry=_qrdata->entries+_qrdata->nentries++;
     /*Set the mode to an invalid value until we allocate a buffer for it.
       This ensures we don't try to free it on clean-up until then.*/
-    entry->mode=-1;
-    switch(mode){
-      /*The number of bits used to encode the character count for each version
+    entry->mode=QR_MODE_NULL;
+	/*The number of bits used to encode the character count for each version
          range and each data mode.*/
       static const unsigned char LEN_BITS[3][4]={
         {10, 9, 8, 8},
         {12,11,16,10},
         {14,13,16,12}
       };
+    switch(mode){
       case QR_MODE_NUM:{
         unsigned char *buf;
         unsigned       bits;
@@ -3233,7 +3233,7 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
         count=len/3;
         rem=len%3;
         if(qr_pack_buf_avail(&qpb)<10*count+7*(rem>>1&1)+4*(rem&1))return -1;
-        entry->mode=mode;
+        entry->mode=(qr_mode)mode;
         entry->payload.data.buf=buf=(unsigned char *)malloc(len*sizeof(*buf));
         entry->payload.data.len=len;
         /*Read groups of 3 digits encoded in 10 bits.*/
@@ -3272,7 +3272,7 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
         count=len>>1;
         rem=len&1;
         if(qr_pack_buf_avail(&qpb)<11*count+6*rem)return -1;
-        entry->mode=mode;
+        entry->mode=(qr_mode)mode;
         entry->payload.data.buf=buf=(unsigned char *)malloc(len*sizeof(*buf));
         entry->payload.data.len=len;
         /*Read groups of two characters encoded in 11 bits.*/
@@ -3293,7 +3293,7 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
       /*Structured-append header.*/
       case QR_MODE_STRUCT:{
         int bits;
-        entry->mode=mode;
+        entry->mode=(qr_mode)mode;
         bits=qr_pack_buf_read(&qpb,16);
         if(bits<0)return -1;
         /*We also save a copy of the data in _qrdata for easy reference when
@@ -3315,13 +3315,13 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
         /*Check to see if there are enough bits left now, so we don't have to
            in the decode loop.*/
         if(qr_pack_buf_avail(&qpb)<len<<3)return -1;
-        entry->mode=mode;
+        entry->mode=(qr_mode)mode;
         entry->payload.data.buf=buf=(unsigned char *)malloc(len*sizeof(*buf));
         entry->payload.data.len=len;
         while(len-->0)*buf++=(unsigned char)qr_pack_buf_read(&qpb,8);
       }break;
       /*FNC1 first position marker.*/
-      case QR_MODE_FNC1_1ST:entry->mode=mode;break;
+      case QR_MODE_FNC1_1ST:entry->mode=(qr_mode)mode;break;
       /*Extended Channel Interpretation data.*/
       case QR_MODE_ECI:{
         unsigned val;
@@ -3349,7 +3349,7 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
         }
         /*Invalid lead byte.*/
         else return -1;
-        entry->mode=mode;
+        entry->mode=(qr_mode)mode;
         entry->payload.eci=val;
       }break;
       case QR_MODE_KANJI:{
@@ -3361,7 +3361,7 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
         /*Check to see if there are enough bits left now, so we don't have to
            in the decode loop.*/
         if(qr_pack_buf_avail(&qpb)<13*len)return -1;
-        entry->mode=mode;
+        entry->mode=(qr_mode)mode;
         entry->payload.data.buf=buf=(unsigned char *)malloc(2*len*sizeof(*buf));
         entry->payload.data.len=2*len;
         /*Decode 2-byte SJIS characters encoded in 13 bits.*/
@@ -3376,7 +3376,7 @@ static int qr_code_data_parse(qr_code_data *_qrdata,int _version,
         }
       }break;
       /*FNC1 second position marker.*/
-      case QR_MODE_FNC1_2ND:entry->mode=mode;break;
+      case QR_MODE_FNC1_2ND:entry->mode=(qr_mode)mode;break;
       /*Unknown mode number:*/
       default:{
         /*Unfortunately, because we have to understand the format of a mode to
@@ -3881,7 +3881,7 @@ int _zbar_qr_found_line (qr_reader *reader,
 
     if(lines->nlines >= lines->clines) {
         lines->clines *= 2;
-        lines->lines = realloc(lines->lines,
+        lines->lines = (qr_finder_line*)realloc(lines->lines,
                                ++lines->clines * sizeof(*lines->lines));
     }
 
@@ -3932,13 +3932,13 @@ int _zbar_qr_decode (qr_reader *reader,
     qr_svg_centers(centers, ncenters);
 
     if(ncenters >= 3) {
-        void *bin = qr_binarize(img->data, img->width, img->height);
+        void *bin = qr_binarize((unsigned char *)img->data, img->width, img->height);
 
         qr_code_data_list qrlist;
         qr_code_data_list_init(&qrlist);
 
         qr_reader_match_centers(reader, &qrlist, centers, ncenters,
-                                bin, img->width, img->height);
+                                (unsigned char *)bin, img->width, img->height);
 
         if(qrlist.nqrdata > 0)
             nqrdata = qr_code_data_list_extract_text(&qrlist, iscn, img);

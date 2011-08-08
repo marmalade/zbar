@@ -34,7 +34,9 @@ typedef enum qr_mode{
   /*FNC1 marker (for more info, see http://www.mecsw.com/specs/uccean128.html).
     In the "second position" data is formatted in accordance with an industry
      application as specified by AIM Inc.*/
-  QR_MODE_FNC1_2ND
+  QR_MODE_FNC1_2ND,
+  /* No mode / unsupported mode */
+  QR_MODE_NULL=-1
 }qr_mode;
 
 /*Check if a mode has a data buffer associated with it.
