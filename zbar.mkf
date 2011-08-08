@@ -1,0 +1,16 @@
+includepaths
+{
+    "src"
+}
+
+library ".,zbar"
+
+
+files
+{
+	zbar.mkf	
+
+
+	(./src)
+	zbar.h
+}

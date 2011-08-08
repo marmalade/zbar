@@ -1,0 +1,68 @@
+upstream
+{
+	url="http://downloads.sourceforge.net/project/zbar/zbar/0.10/zbar-0.10.tar.bz2"
+}
+
+option lib
+
+includepaths
+{
+	"."
+	"upstream/zbar"
+}
+
+subproject zbar
+
+files
+{
+	config.h
+
+	["Upstream ZBar source files"]
+	(./upstream/zbar)
+	debug.h
+	config.c
+	error.h
+	error.c
+	symbol.h
+	symbol.c
+	image.h
+	image.c
+	convert.c
+	processor.c
+	processor.h
+	processor/lock.c
+	refcnt.h
+	refcnt.c
+	timer.h
+	mutex.h
+	event.h
+	thread.h
+	window.h
+	window.c
+	video.h
+	video.c
+	img_scanner.h
+	img_scanner.c
+	scanner.c
+	decoder.h
+	decoder.c
+	svg.h
+
+	# QR code files:
+	qrcode.h
+	decoder/qr_finder.h
+	decoder/qr_finder.c
+	qrcode/qrdec.h
+	qrcode/qrdec.c
+	qrcode/qrdectxt.c
+	qrcode/rs.h
+	qrcode/rs.c
+	qrcode/isaac.h
+	qrcode/isaac.c
+	qrcode/bch15_5.h
+	qrcode/bch15_5.c
+	qrcode/binarize.h
+	qrcode/binarize.c
+	qrcode/util.h
+	qrcode/util.c
+}

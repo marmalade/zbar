@@ -1,0 +1,66 @@
+option lib
+
+includepaths
+{
+	"src/"
+	"."
+	"src/zbar"
+}
+
+subproject zbar
+
+files
+{
+	config.h
+
+	["Modified ZBar source files"]
+	src/zbar.h
+	(./src/zbar)
+	debug.h
+	config.cpp
+	error.h
+	error.cpp
+	symbol.h
+	symbol.cpp
+	image.h
+	image.cpp
+	convert.cpp
+	processor.cpp
+	processor.h
+	processor/lock.cpp
+	refcnt.h
+	refcnt.cpp
+	timer.h
+	mutex.h
+	event.h
+	thread.h
+	window.h
+	window.cpp
+	video.h
+	video.cpp
+	img_scanner.h
+	img_scanner.cpp
+	scanner.cpp
+	decoder.h
+	decoder.cpp
+	svg.h
+
+	# QR code files:
+	qrcode.h
+	decoder/qr_finder.h
+	decoder/qr_finder.cpp
+	qrcode/qrdec.h
+	qrcode/qrdec.cpp
+	qrcode/qrdectxt.cpp
+	qrcode/rs.h
+	qrcode/rs.cpp
+	qrcode/isaac.h
+	qrcode/isaac.cpp
+	qrcode/bch15_5.h
+	qrcode/bch15_5.cpp
+	qrcode/binarize.h
+	qrcode/binarize.cpp
+	qrcode/util.h
+	qrcode/util.cpp
+}
+
