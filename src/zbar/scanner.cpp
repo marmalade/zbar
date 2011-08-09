@@ -172,7 +172,7 @@ static inline zbar_symbol_type_t process_edge (zbar_scanner_t *scn,
     return(ZBAR_PARTIAL);
 }
 
-inline zbar_symbol_type_t zbar_scanner_flush (zbar_scanner_t *scn)
+zbar_symbol_type_t zbar_scanner_flush (zbar_scanner_t *scn)
 {
     if(!scn->y1_sign)
         return(ZBAR_NONE);

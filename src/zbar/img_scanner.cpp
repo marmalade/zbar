@@ -213,7 +213,7 @@ inline void zbar_image_scanner_recycle_image (zbar_image_scanner_t *iscn,
     }
 }
 
-inline zbar_symbol_t*
+zbar_symbol_t*
 _zbar_image_scanner_alloc_sym (zbar_image_scanner_t *iscn,
                                zbar_symbol_type_t type,
                                int datalen)
