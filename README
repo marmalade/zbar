@@ -40,3 +40,5 @@ Then, in your project source files, simply add
 	#include "zbar.h"
 and use zbar according to the API documentation.
 Note that only the C API will be available, not the C++ API.
+
+Example of use: http://sourceforge.net/apps/mediawiki/zbar/index.php?title=HOWTO:_Scan_images_using_the_API#C
