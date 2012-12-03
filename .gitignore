@@ -1,6 +1,5 @@
-build_zbar_vc10/
+build_zbar_*/
 /upstream/*
 !/upstream/README
 !/upstream/LICENSE
 zbar*.tar.bz2
-lib/

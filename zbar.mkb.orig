@@ -1,3 +1,6 @@
+# This file uses the unmodified ZBar source code
+# However, it will not compile with MSVC
+
 upstream
 {
 	url="http://downloads.sourceforge.net/project/zbar/zbar/0.10/zbar-0.10.tar.bz2"
