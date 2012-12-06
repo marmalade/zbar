@@ -1,0 +1,35 @@
+#!/usr/bin/env mkb
+
+option module_path="../;"
+
+define IW_GXFONT_TTF
+
+files
+{
+	README.txt
+
+	(src)
+	main.cpp
+	main.h
+}
+
+subprojects
+{
+	iw2d
+	iwnui
+	zbar
+	iwgxfont
+}
+
+assets
+{
+	(data-ram/data-gles1)
+	ui.group.bin
+	iwui_style/iwui_style.group.bin
+}
+
+#### AUTO GENERATED deployment settings from DeployTool.exe. Do not edit below this line ####
+deployments
+{
+	["Default"]
+}

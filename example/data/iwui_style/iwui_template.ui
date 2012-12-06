@@ -1,0 +1,50 @@
+// IwUICalculator.ui
+// Example Stylesheets
+
+CIwUIButton
+{
+    name "button"
+    style <button>
+}
+
+CIwUILabel
+{
+    name "label"
+    style <label_medium>
+}
+
+CIwUICheckBox
+{
+    name "checkbox"
+    style <checkbox>
+}
+
+CIwUIImage
+{
+    name "image"
+    sizeToContent true
+}
+
+CIwUIProgressBar
+{
+    name "progressbar"
+    style <progressBar>
+}
+
+CIwUISlider
+{
+    name "sliderbar"
+    style <slider>
+}
+
+CIwUITabBar
+{
+    name "tabbar"
+}
+
+CIwUITextField
+{
+    name "textfield"
+    
+    style <textField>
+}

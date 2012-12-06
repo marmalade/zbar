@@ -2,7 +2,7 @@ ZBAR BAR CODE READER FOR MARMALADE
 ==================================
 ZBar, adapated to Marmalade build system by Morningstar Enterprises Inc.
 
-Only supports QR code functionality
+Only supports QR code functionality. Tested and used in production apps.
 
 License: GNU Lesser General Public License, version 2.1
 
@@ -28,11 +28,12 @@ and use zbar according to the API documentation.
 Note that only the C API will be available, not the C++ API.
 
 Examples of use: 
-	https://github.com/ailicic/zbar-marmalade-demo
-	http://sourceforge.net/apps/mediawiki/zbar/index.php?title=HOWTO:_Scan_images_using_the_API#C
 
-I've tested the ARM build and it works very well for reading QR codes.
+* See "example" folder
+* More ZBar examples at http://sourceforge.net/apps/mediawiki/zbar/index.php?title=HOWTO:_Scan_images_using_the_API#C
+
 
 SUPPORT
 =======
-Contact GitHub user bradenmacdonald if you have any questions, problems, suggestions, or requests.
+Contact GitHub user [bradenmacdonald](http://github.com/bradenmacdonald) if you
+have any questions, problems, suggestions, or requests.

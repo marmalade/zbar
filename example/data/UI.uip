@@ -1,0 +1,10 @@
+// IwUI Project file
+
+dir " "
+group "UI.group"
+palette ""
+material "iwui_style/textures/iwui_style.mtl"
+propset "iwui_style/iwui_propertysets.itx"
+stylesheet ""
+hwswmode 2
+size 400 800

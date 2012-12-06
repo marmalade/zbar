@@ -1,5 +1,7 @@
-build_zbar_*/
+build_zbar*/
 /upstream/*
 !/upstream/README
 !/upstream/LICENSE
 zbar*.tar.bz2
+data-ram/
+development.icf

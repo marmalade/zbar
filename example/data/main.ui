@@ -1,0 +1,99 @@
+CIwUIElement 
+{
+	name "main"
+	CIwUILabel 
+	{
+		name "HeaderText"
+		style <label_large>
+		alignH centre
+		caption "Marmalade Barcode Scanner Demo"
+	}
+	CIwUILabel 
+	{
+		name "ZBarText"
+		style <label_large>
+		caption "Powered by ZBar"
+	}
+	CIwUIButton 
+	{
+		name "QuitBtn"
+		sizeToContent true
+		style <button>
+		font "font_medium"
+		caption "Quit"
+	}
+	CIwUIElement 
+	{
+		name "BodyVerticalLayout"
+		sizeToContent true
+		CIwUIButton
+		{
+			name "ScanBtn"
+			style <button>
+			font "font_medium"
+			caption "Scan Again"
+			enabled false
+		}
+		CIwUIElement 
+		{
+			name "CameraPreviewSpacer" //Note: Can not use CIwUILayoutSpacer since programmatic position referencing is required
+			sizeToContent false
+			aspectRatio { 1 1 }
+		}
+		CIwUILabel
+		{
+			name "StatusText"
+			style <label_large>
+			caption "Starting Camera..."
+		}
+		CIwUILayoutVertical
+		{
+			name "BodyVerticalLayout"
+			element
+			{
+				name "ScanBtn"
+				alignH "centre"
+			}
+			element
+			{
+				name "CameraPreviewSpacer"
+			}
+			element 
+			{
+				name "StatusText"
+				alignH "centre"
+			}
+		}
+	}
+	CIwUILayout 
+	{
+		name "MainLayeredLayout"
+		element 
+		{
+			name "HeaderText"
+			border { 10 10 }
+			alignH "centre"
+			alignV "top"
+		}
+		element 
+		{
+			name "BodyVerticalLayout"
+			alignH "centre"
+			alignV "middle"
+		}
+		element 
+		{
+			name "ZBarText"
+			border { 10 10 }
+			alignH "left"
+			alignV "bottom"
+		}
+		element 
+		{
+			name "QuitBtn"
+			border { 10 10 }
+			alignH "right"
+			alignV "bottom"
+		}
+	}
+}

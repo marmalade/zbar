@@ -1,0 +1,10 @@
+// IwUI Group file created by the tool
+
+CIwResGroup
+{
+	name "UI"
+	
+	#"iwui_style/style.group"
+	
+	#"main.ui"	#Not needed with NUI
+}
